@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Meu Site</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Entre em Contato Conosco 📩</h2>
+
+<form action="processa.php" method="POST">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required>
+
+    <label for="telefone">Telefone:</label>
+    <input type="number" id="telefone" name="telefone" required>
+
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="mensagem">Mensagem:</label>
+    <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+
+    <button type="submit">Enviar via POST</button>
+</form>
+
+<hr>
+
+<h3>Enviar via GET</h3>
+<p>Clique no botão abaixo para enviar os dados via GET:</p>
+<button onclick="enviarPorGet()">Enviar via GET</button>
+
+<script>
+function enviarPorGet() {
+    let nome = encodeURIComponent(document.getElementById('nome').value);
+    let telefone = encodeURIComponent(document.getElementById('telefone').value);
+    let email = encodeURIComponent(document.getElementById('email').value);
+    let mensagem = encodeURIComponent(document.getElementById('mensagem').value);
+
+    let url = `processa.php?nome=${nome}&telefone=${telefone}&email=${email}&mensagem=${mensagem}`;
+    window.location.href = url;
+}
+</script>
+
+<footer>
+    <p>© 2025 Wiliam Mateus Weber - Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>
+

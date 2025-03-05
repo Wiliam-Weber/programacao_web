@@ -1,0 +1,17 @@
+{
+    "name": "1034207/programacao_web",
+    "autoload": {
+        "psr-4": {
+            "1034207\\ProgramacaoWeb\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "WILIAM MATEUS WEBER",
+            "email": "wiliam.weber@unidavi.eu.br"
+        }
+    ],
+    "require": {
+        "mpdf/mpdf": "^8.2"
+    }
+}

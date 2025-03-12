@@ -7,7 +7,7 @@ use Mpdf\Mpdf;
 try {
     $mpdf = new Mpdf();
     
-    $html = '<h1>Hello World - Texto gerado através do Mpdf\mpdf</h1>';
+    $html = '<h1>Hello World - Texto de teste PDF</h1>';
     
     $mpdf->WriteHTML($html);
     

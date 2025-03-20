@@ -1,7 +1,9 @@
 <?php
 
-use Carbon\Carbon;
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ImcController extends Controller
 {
@@ -12,32 +14,35 @@ class ImcController extends Controller
 
     public function calculateImc(Request $request)
     {
-        $name = $request->input('name');
-        $birthdate = $request->input('birthdate');
-        $weight = $request->input('weight');
-        $height = $request->input('height');
+        // Validação dos dados
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'birth_date' => 'required|date',
+            'weight' => 'required|numeric',
+            'height' => 'required|numeric',
+        ]);
 
-        $age = Carbon::parse($birthdate)->age;
-        $imc = $weight / ($height * $height);
+        $birthDate = Carbon::parse($validated['birth_date']);
+        $age = $birthDate->age;
 
-        // Classificação do IMC
+        $imc = $validated['weight'] / ($validated['height'] * $validated['height']);
+
+        $classification = '';
         if ($imc < 18.5) {
-            $classification = "Abaixo do peso";
-        } elseif ($imc >= 18.5 && $imc < 24.9) {
-            $classification = "Peso normal";
-        } elseif ($imc >= 25 && $imc < 29.9) {
-            $classification = "Sobrepeso";
-        } elseif ($imc >= 30 && $imc < 34.9) {
-            $classification = "Obesidade I";
-        } elseif ($imc >= 35 && $imc < 39.9) {
-            $classification = "Obesidade II";
+            $classification = 'Abaixo do peso';
+        } elseif ($imc >= 18.5 && $imc <= 24.9) {
+            $classification = 'Peso normal';
+        } elseif ($imc >= 25 && $imc <= 29.9) {
+            $classification = 'Sobrepeso';
+        } elseif ($imc >= 30 && $imc <= 34.9) {
+            $classification = 'Obesidade I';
+        } elseif ($imc >= 35 && $imc <= 39.9) {
+            $classification = 'Obesidade II';
         } else {
-            $classification = "Obesidade III";
+            $classification = 'Obesidade III';
         }
 
-        // Passar os dados para a view do resultado
-        return view('imc-result', compact('name', 'age', 'weight', 'height', 'imc', 'classification'));
+        // Retornar o resultado para o view
+        return view('imc-result', compact('validated', 'imc', 'classification', 'age'));
     }
 }
-
-

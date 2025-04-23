@@ -14,7 +14,6 @@ class ImcController extends Controller
 
     public function calculateImc(Request $request)
     {
-        // Validação dos dados
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'birth_date' => 'required|date',
